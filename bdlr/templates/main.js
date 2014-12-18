@@ -12,12 +12,21 @@ $( document ).ready(function() {
 });
 
 function ready(){
+    if (current_page == 14)
+    {
+        return;
+    }
     $('#book').css('cursor', 'pointer').click(function() {
-        next_page();
+        //next_page();
     });
+
+    $("#book").turn({
+		width: 1010,
+		height: 810,
+	}).bind("turning", next_page);
 }
 
-function next_page(){
+function next_page(x, y, z){
     current_page += 1;
     console.log("Preload: " + preload_on);
 
@@ -36,10 +45,20 @@ function next_page(){
 
     console.log("Going to next page:" + current_page);
     console.log("chunk:" + chunk_index);
-    $('#painting').html('<i class="sprite-sheet-' + chunk_index + ' sprite-' + current_page + '"></i>');
 
-    $('#original').html('<p>' + current_page_data["original"].text + '</p>');
-    $('#current').html('<p>' + current_page_data["English"][0].text + '</p>');
+//    $('#book').append('<div class="painting"><i class="sprite-sheet-' + chunk_index + ' sprite-' + current_page + '"></i></div>');
+//
+//    poems = $("<div id='poems'></div>");
+//    poems.append('<span class="poem" id="original"><p>' + current_page_data["original"].text + '</p></span>');
+//    poems.append('<span class="poem" id="current"><p>' + current_page_data["English"][0].text + '</p></span>');
+//    $('#book').append(poems);
+
+    $('#painting-' + current_page).html('<i class="sprite-sheet-' + chunk_index + ' sprite-' + current_page + '"></i>');
+
+    poems = $('#poems-' + current_page);
+    poems = poems.empty().append('<span class="poems" id="original"><p>' + current_page_data["original"].text + '</p></span>');
+    poems.append('<span class="poem" id="current"><p>' + current_page_data["English"][0].text + '</p></span>');
+
 }
 
 

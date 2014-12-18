@@ -2,6 +2,17 @@
     display: none;
 }
 
+body {
+    background-color: yellow;
+}
+
+.painting {
+    background-color: greenyellow;
+}
+
+.poems {
+    background-color: lightyellow;
+}
 
 
 
