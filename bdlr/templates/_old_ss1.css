@@ -1,0 +1,28 @@
+body:after{
+    display:none;
+    content: url(1-2-3.png);
+}
+
+.sprite-sheet-1 {
+    background-image: url(1-2-3.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-1 {
+    width: 508px;
+    height: 800px;
+    background-position: -5px -5px;
+}
+
+.sprite-2 {
+    width: 510px;
+    height: 800px;
+    background-position: -523px -5px;
+}
+
+.sprite-3 {
+    width: 507px;
+    height: 800px;
+    background-position: -1043px -5px;
+}

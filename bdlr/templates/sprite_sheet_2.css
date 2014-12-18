@@ -1,0 +1,40 @@
+body:after{
+    display:none;
+    content: url(4-5-6-7-8.png);
+}
+
+.sprite-sheet-2 {
+    background-image: url(4-5-6-7-8.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-4 {
+    width: 514px;
+    height: 800px;
+    background-position: -5px -5px;
+}
+
+.sprite-5 {
+    width: 519px;
+    height: 800px;
+    background-position: -529px -5px;
+}
+
+.sprite-6 {
+    width: 516px;
+    height: 800px;
+    background-position: -1058px -5px;
+}
+
+.sprite-7 {
+    width: 514px;
+    height: 800px;
+    background-position: -5px -815px;
+}
+
+.sprite-8 {
+    width: 511px;
+    height: 800px;
+    background-position: -529px -815px;
+}

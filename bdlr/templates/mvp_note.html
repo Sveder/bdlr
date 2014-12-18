@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>title</title>
+        <link rel="stylesheet" href="{% static "style.css" %}" type="text/css">
+        <link rel="stylesheet" href="/css/sprite_sheet_1.css" type="text/css">
+        <script>
+            var first_chunk = {{ first_chunk | safe }};
+        </script>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+        <script src="{% static "main.js" %}" type="text/javascript"></script>
+    </head>
+
+    <body>
+        <div id="preload">
+            <i class="sprite sprite-1'"></i>
+        </div>
+
+        <div>
+            <table id="book">
+                <tr>
+                    <td id="painting">
+                        I'm closed
+                    </td>
+
+                    <td id="poems">
+                        <div class="poem" id="original">
+                            French closed
+                        </div>
+
+
+                        <div class="poem" id="current">
+                            Trans closed
+                        </div>
+                    <td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+{
+    "css" : "sprite_sheet_1_4.css",
+    "chunk_start" : 1,
+    "chunk_stop" : 4,
+    "chunk_index" : 1,
+    "page_count" : 4,
+    "pages" : [
+        {
+            "original" : {
+                "author" : "boudlaire",
+                "text" : "hi there I'm a poem",
+                "book" : "flours du mal",
+                "name" : "le chat",
+                "year" : 1922
+            },
+            "english" : [
+                {
+                    "author" : "english author",
+                    "text" : "le poem du champs",
+                    "book" : "some publication",
+                    "name" : "the cat",
+                    "year" : 1973,
+                    "importance" : 12
+                },
+                {
+                    "author" : "english author2",
+                    "text" : "le poem du champs2",
+                    "book" : "some publication2",
+                    "name" : "the cat2",
+                    "year" : 1974,
+                    "importance" : 13
+                }
+
+            ]
+        },
+        {
+
+
+        }
+    ]
+}
