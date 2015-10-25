@@ -1,0 +1,1 @@
+manage.py runserver --settings=bdlr.settings.dev

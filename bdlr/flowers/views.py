@@ -15,8 +15,12 @@ def chunk_to_pages(chunk):
     return chunk_pages[chunk-1]
 
 
-def index(request):
-    d = {"first_chunk" : generate_chunk_json(1)}
+def index(request, page=0):
+    if not page:
+        page = 0
+
+    d = {"first_chunk": generate_chunk_json(1),
+         "start_page" : page,}
     return render_to_response("mvp_note.html", dictionary=d)
 
 
@@ -45,15 +49,16 @@ def json_chunk(request, chunk_ordinal):
 def generate_chunk_json(chunk_ordinal):
     first_page, last_page = chunk_to_pages(int(chunk_ordinal))
     pages = []
+
     for poem in models.Poem.objects.filter(ordinal__gte=first_page, ordinal__lte=last_page):
         pages.append(_return_poem_dict(poem))
 
-    chunk = { "chunk_index" : chunk_ordinal,
-              "chunk_start" : first_page,
+    chunk = { "chunk_index": chunk_ordinal,
+              "chunk_start": first_page,
               "chunk_stop" : last_page,
               "page_count" : len(pages),
-              "css" : "sprite_sheet_%s.css" % chunk_ordinal,
-              "pages" : pages}
+              "css"        : "sprite_sheet_%s.css" % chunk_ordinal,
+              "pages"      : pages}
 
     return json.dumps(chunk)
 
@@ -67,10 +72,10 @@ def _return_poem_dict(obj):
 
     translations = {}
     for t in obj.translations.all():
-        d = { "author" : t.author,
-              "text"   : t.text,
-              "name"   : t.name,
-              "year"   : t.year,
+        d = { "author"     : t.author,
+              "text"       : t.text,
+              "name"       : t.name,
+              "year"       : t.year,
               "importance" : t.importance}
 
         if t.language in translations:

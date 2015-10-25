@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', 'flowers.views.index', name='index'),
+    url(r'^(?P<page>[0-9]*)$', 'flowers.views.index', name='index'),
     url(r'api/test$', 'flowers.views.api_get_json', name='api_get_json'),
 
     url(r"css/sprite_sheet_(\d+).css", 'flowers.views.generate_css', name="generate_css"),
