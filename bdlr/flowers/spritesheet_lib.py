@@ -27,7 +27,6 @@ CSS_SS_ITEM_TEMPLATE = """.sprite-%s {
 
 def create_sprite_css(name_to_image_path_dict, chunk_index):
     """
-
     :param name_to_image_path_dict:
     :return:
     """
