@@ -1,5 +1,7 @@
+import os
 import json
 
+from django.conf import settings
 from django.http.response import HttpResponse
 from django.shortcuts import render, render_to_response
 
@@ -29,7 +31,7 @@ def generate_css(request, chunk_index):
 
     name_to_image_path = {}
     for i in xrange(first_page, last_page + 1):
-        image_path = "assets/paintings/%s.jpg" % i
+        image_path = os.path.join(settings.PAINTINGS_DIR, "%s.jpg" % i)
         name_to_image_path["%s" % i] = image_path
 
         painting = models.Painting(path=image_path)

@@ -15,6 +15,7 @@ body {
 
 .painting {
     background-color: greenyellow;
+    overflow: hidden;
 }
 
 .poems {
