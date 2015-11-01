@@ -24,7 +24,7 @@ function ready(){
 
     $("#book").turn({
 		width: 1010,
-		height: 810
+		height: 800
 	}).bind("turning", next_page);
 
     if (page != 0)

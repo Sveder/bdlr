@@ -7,11 +7,11 @@ from django.conf import settings
 CSS_TEMPLATE = """
 body:after{
     display:none;
-    content: url(/static/%s);
+    content: url(/static/spritesheet/%s);
 }
 
 .sprite-sheet-%s {
-    background-image: url(/static/%s);
+    background-image: url(/static/spritesheet/%s);
     background-repeat: no-repeat;
     display: block;
 }
