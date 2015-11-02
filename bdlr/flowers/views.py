@@ -31,13 +31,9 @@ def generate_css(request, chunk_index):
 
     name_to_image_path = {}
     for i in xrange(first_page, last_page + 1):
-        image_path = os.path.join(settings.PAINTINGS_DIR, "%s.jpg" % i)
-        name_to_image_path["%s" % i] = image_path
-
-        painting = models.Painting.objects.get_or_create(path=image_path)[0]
-        painting.save()
-        models.Poem.objects.get(ordinal=i).image.add(painting)
-        models.Poem.objects.get(ordinal=i).save()
+        poem = models.Poem.objects.get(ordinal=i)
+        painting = poem.image.last()
+        name_to_image_path["%s" % i] = painting.path
 
     css = spritesheet_lib.create_sprite_css(name_to_image_path, chunk_index)
     return HttpResponse(css, content_type="text/css")
@@ -52,7 +48,7 @@ def generate_chunk_json(chunk_ordinal):
     first_page, last_page = chunk_to_pages(int(chunk_ordinal))
     pages = []
 
-    for poem in models.Poem.objects.filter(ordinal__gte=first_page, ordinal__lte=last_page):
+    for poem in models.Poem.objects.filter(ordinal__gte=first_page, ordinal__lte=last_page).order_by("ordinal"):
         pages.append(_return_poem_dict(poem))
 
     chunk = { "chunk_index": chunk_ordinal,
