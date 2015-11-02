@@ -34,7 +34,7 @@ def generate_css(request, chunk_index):
         image_path = os.path.join(settings.PAINTINGS_DIR, "%s.jpg" % i)
         name_to_image_path["%s" % i] = image_path
 
-        painting = models.Painting(path=image_path)
+        painting = models.Painting.objects.get_or_create(path=image_path)[0]
         painting.save()
         models.Poem.objects.get(ordinal=i).image.add(painting)
         models.Poem.objects.get(ordinal=i).save()
