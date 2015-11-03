@@ -49,7 +49,8 @@ def create_sprite_sheet(name_to_image_path_dict):
     :return: image path on server, dictionary of image name (from the input) to (x, y, w, h) of image location in the
     sprite sheet.
     """
-    images = {name: Image.open(file_path) for name, file_path in name_to_image_path_dict.items()}
+    images = {name: Image.open(os.path.join(settings.PAINTINGS_DIR, os.path.basename(file_path.replace("\\", "/"))))
+              for name, file_path in name_to_image_path_dict.items()}
     image_to_location = {}
 
     master_height = max([i.size[1] for i in images.values()])  # Make it as high as the highest image
