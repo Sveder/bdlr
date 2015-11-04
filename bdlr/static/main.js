@@ -47,6 +47,8 @@ function scroll_to(page){
 
 function next_page(x, y, z){
     current_page = Math.floor(y / 2);
+    window.history.replaceState("", "", "/" + current_page);
+
     console.log("Current page: " + current_page);
     console.log("Preload: " + preload_on);
 

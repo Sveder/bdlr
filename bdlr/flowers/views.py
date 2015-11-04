@@ -50,7 +50,7 @@ def index(request, page=0):
     if not page:
         page = 0
 
-    d = {"first_chunk": generate_chunk_json(chunk_from_page(page)),
+    d = {"first_chunk": generate_chunk_json(1),
          "start_page" : page,}
     return render_to_response("mvp_note.html", dictionary=d)
 
