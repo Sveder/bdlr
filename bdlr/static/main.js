@@ -27,9 +27,10 @@ function ready(){
 		height: 800
 	}).bind("turning", next_page);
 
-    if (page != 0)
+    map_chunk_to_book(first_chunk);
+    if (anchored_page != 0)
     {
-        scroll_to(page);
+        scroll_to(anchored_page);
     }
     else
     {
@@ -37,8 +38,7 @@ function ready(){
     }
 }
 
-function scroll_to(page)
-{
+function scroll_to(page){
     for (var i = 0; i < page; ++i)
     {
         $("#book").turn("next");
@@ -47,11 +47,10 @@ function scroll_to(page)
 
 function next_page(x, y, z){
     current_page = Math.floor(y / 2);
-
     console.log("Current page: " + current_page);
     console.log("Preload: " + preload_on);
 
-    if (preload_on == current_page)
+    if (preload_on <= current_page)
     {
         if (current_page > 1)
         {
@@ -100,16 +99,11 @@ function map_chunk_to_book(data)
     for (page in data["pages"])
     {
         actual_page = data["pages"][page];
-
-        console.log("Page:" + page);
-        console.log(actual_page);
         iteration_page = data.chunk_start + counter;
 
         $('#painting-' + iteration_page).html('<i class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></i>');
 
         poems = $('#poems-' + iteration_page);
-        console.log(poems);
-
         poems = poems.empty().append('<h1>' + actual_page["original"].name + '/' + actual_page["English"][0].name + '</h1>');
         poems.append('<span class="poems" id="original"><pre>' + actual_page["original"].text + '</pre></span>');
         poems.append('<span class="poem" id="current"><p>' + actual_page["English"][0].text + '</p></span>');

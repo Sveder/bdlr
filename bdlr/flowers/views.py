@@ -1,27 +1,56 @@
-import os
 import json
 
-from django.conf import settings
 from django.http.response import HttpResponse
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render_to_response
 
 import models
 import spritesheet_lib
 
-def chunk_to_pages(chunk):
-    chunk_pages = [(1, 3),
-                   (4, 8),
-                   (9, 12),
-                   (13, 14)]
 
-    return chunk_pages[chunk-1]
+CHUNK_PAGES = [(1, 4),
+               (5, 8),
+               (9, 12),
+               (13, 16),
+               (17, 20),
+               (21, 24),
+               (25, 28),
+               (29, 32),
+               (33, 36),
+               (37, 40),
+               (41, 44),
+               (45, 48),
+               (49, 52),
+               (53, 56),
+               (57, 60),
+               (61, 64),
+               (65, 68),
+               (69, 72),
+               (73, 76),
+               (77, 80),
+               (81, 84),
+               (85, 88),
+               (89, 92),
+               (93, 96),
+               (97, 101)]
+
+
+def chunk_to_pages(chunk):
+    return CHUNK_PAGES[chunk-1]
+
+
+def chunk_from_page(page_number):
+    for chunk_start, chunk_end in CHUNK_PAGES:
+        if chunk_start <= page_number <= chunk_end:
+            return CHUNK_PAGES.index((chunk_start, chunk_end))
+
+    return 0
 
 
 def index(request, page=0):
     if not page:
         page = 0
 
-    d = {"first_chunk": generate_chunk_json(1),
+    d = {"first_chunk": generate_chunk_json(chunk_from_page(page)),
          "start_page" : page,}
     return render_to_response("mvp_note.html", dictionary=d)
 
