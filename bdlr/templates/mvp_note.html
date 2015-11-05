@@ -5,26 +5,28 @@
         <meta charset="UTF-8">
         <title>title</title>
         <link rel="stylesheet" href="{% static "style.css" %}" type="text/css">
-        <link rel="stylesheet" href="/css/sprite_sheet_1.css" type="text/css">
+        <link rel="stylesheet" href="/css/sprite_sheet_{{ first_ordinal }}.css" type="text/css">
         <script>
             var first_chunk = {{ first_chunk | safe }};
-            var anchored_page = {{ start_page }};
+            var first_ordinal = {{ first_ordinal }};
 
+            var anchored_page = {{ start_page }};
+            var chunk_count = {{ chunk_count }};
         </script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
         <script src="{% static 'vendor/turn.js' %}" type="text/javascript"></script>
 
-
+        <script src="{% static 'chunk_manager.js' %}" type="text/javascript"></script>
         <script src="{% static 'main.js' %}" type="text/javascript"></script>
     </head>
 
     <body>
         <div id="preload">
-            <i class="sprite sprite-1'"></i>
+            <i class="sprite sprite-{{ first_ordinal }}"></i>
         </div>
 
-        <div id="pen"> <img draggable="false" src="static/img/pen.png"> </div>
+{#        <div id="pen"> <img draggable="false" src="static/img/pen.png"> </div>#}
 
         <div>
             <div id="book">

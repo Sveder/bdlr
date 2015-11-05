@@ -13,6 +13,12 @@ body {
     user-select: none;
 }
 
+#book
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .painting {
     background-color: greenyellow;
     overflow: hidden;

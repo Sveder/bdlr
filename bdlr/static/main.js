@@ -1,111 +1,74 @@
-var chunks = [first_chunk];
-var current_chunk = first_chunk;
-var chunk_index = 1;
-var current_page_data = null;
-
+var chunk_manager = new ChunkManager(first_chunk, first_ordinal, chunk_count);
 var current_page = 0; // 0 is closed...
-var preload_on = 1;
-
 
 $( document ).ready(function() {
     ready();
 });
 
 function ready(){
-    if (current_page > 14)
-    {
-        return;
-    }
-
-    $('#book').css('cursor', 'pointer').click(function() {
-        //next_page();
-    });
-
-
     $("#book").turn({
 		width: 1010,
 		height: 800
 	}).bind("turning", next_page);
+
+    $('#book').css('cursor', 'pointer').click(function() {
+        //UNCOMMENT WHEN I WANT PAGE CLICK TO TURN. BUT ONLY GOES FORWARD!
+        //$("#book").turn("next");
+    });
 
     map_chunk_to_book(first_chunk);
     if (anchored_page != 0)
     {
         scroll_to(anchored_page);
     }
-    else
-    {
-        map_chunk_to_book(first_chunk);
-    }
 }
 
 function scroll_to(page){
-    for (var i = 0; i < page; ++i)
-    {
-        $("#book").turn("next");
-    }
+    $("#book").turn("page", page * 2);
 }
 
-function next_page(x, y, z){
+
+function next_page(x, y, z) {
     current_page = Math.floor(y / 2);
     window.history.replaceState("", "", "/" + current_page);
 
     console.log("Current page: " + current_page);
-    console.log("Preload: " + preload_on);
 
-    if (preload_on <= current_page)
+    var preloads = chunk_manager.preload_what(current_page);
+    console.log("Preload: " + preloads);
+
+    for (var i = 0; i < preloads.length; ++i)
     {
-        if (current_page > 1)
-        {
-            console.log("Loading the next chunk!");
-            chunk_index += 1;
-            current_chunk = chunks[chunk_index - 1];
-        }
-        load_next_chunk();
+        load_chunk(preloads[i]);
     }
-
-    //console.log("Math" + (current_page - current_chunk["chunk_start"]));
-
-    //
-    //console.log("Going to next page:" + current_page);
-    //console.log("chunk:" + chunk_index);
-
-    //current_page_data = current_chunk["pages"][current_page - current_chunk["chunk_start"]];
-    //$('#painting-' + current_page).html('<i class="sprite-sheet-' + chunk_index + ' sprite-' + current_page + '"></i>');
-    //
-    //poems = $('#poems-' + current_page);
-    //poems = poems.empty().append('<span class="poems" id="original"><pre>' + current_page_data["original"].text + '</pre></span>');
-    //poems.append('<span class="poem" id="current"><p>' + current_page_data["English"][0].text + '</p></span>');
-    
 }
 
 
-function load_next_chunk()
+function load_chunk(chunk_ordinal)
 {
-    next_chunk = (chunk_index + 1).toString();
-    console.log("Loading next chunk: " + next_chunk);
+    console.log("Loading a chunk: " + chunk_ordinal);
 
-    $.ajax({ url: "api/json_chunk/" + next_chunk,
+    $.ajax({ url: "api/json_chunk/" + chunk_ordinal,
              context: document.body})
         .done(function(data) {
-            chunks[chunks.length] = data;
+            chunk_manager.new_one(chunk_ordinal, data);
             preload_css(data["css"]);
-            preload_on += current_chunk["page_count"];
-
             map_chunk_to_book(data);
         });
 }
 
 function map_chunk_to_book(data)
 {
-    counter = 0;
-    for (page in data["pages"])
+    var counter = 0;
+    for (var page in data["pages"])
     {
-        actual_page = data["pages"][page];
-        iteration_page = data.chunk_start + counter;
+        var actual_page = data["pages"][page];
+        var iteration_page = data.chunk_start + counter;
+        console.log("Adding actual page: " + iteration_page);
 
         $('#painting-' + iteration_page).html('<i class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></i>');
 
-        poems = $('#poems-' + iteration_page);
+        var poems = $('#poems-' + iteration_page);
         poems = poems.empty().append('<h1>' + actual_page["original"].name + '/' + actual_page["English"][0].name + '</h1>');
         poems.append('<span class="poems" id="original"><pre>' + actual_page["original"].text + '</pre></span>');
         poems.append('<span class="poem" id="current"><p>' + actual_page["English"][0].text + '</p></span>');

@@ -35,7 +35,7 @@ CHUNK_PAGES = [(1, 4),
 
 
 def chunk_to_pages(chunk):
-    return CHUNK_PAGES[chunk-1]
+    return CHUNK_PAGES[chunk]
 
 
 def chunk_from_page(page_number):
@@ -43,15 +43,24 @@ def chunk_from_page(page_number):
         if chunk_start <= page_number <= chunk_end:
             return CHUNK_PAGES.index((chunk_start, chunk_end))
 
-    return 0
+    return 1
 
 
 def index(request, page=0):
     if not page:
         page = 0
 
-    d = {"first_chunk": generate_chunk_json(1),
-         "start_page" : page,}
+    try:
+        page = int(page)
+    except:
+        page = 0
+
+    chunk = chunk_from_page(page)
+
+    d = {"first_chunk"  : generate_chunk_json(chunk),
+         "first_ordinal": chunk,
+         "start_page"   : page,
+         "chunk_count"  : len(CHUNK_PAGES),}
     return render_to_response("mvp_note.html", dictionary=d)
 
 
