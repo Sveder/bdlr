@@ -43,7 +43,7 @@ def chunk_from_page(page_number):
         if chunk_start <= page_number <= chunk_end:
             return CHUNK_PAGES.index((chunk_start, chunk_end))
 
-    return 1
+    return 0
 
 
 def index(request, page=0):

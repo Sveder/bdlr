@@ -33,6 +33,10 @@ body {
      max-height: 100%;
 }
 
+#back {
+    background-color: red;
+}
+
 #pen {
     float: left;
     position: absolute;
@@ -44,3 +48,4 @@ body {
     filter: FlipH;
     -ms-filter: "FlipH";
 }
+
