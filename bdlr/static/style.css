@@ -24,10 +24,31 @@ body {
     overflow: hidden;
 }
 
+#next_text {
+    display: inline;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
 .poems {
     background-color: lightblue;
-    overflow: hidden;
+    overflow: auto;
 }
+
+
+.poems *{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+    white-space: pre;
+    display: block;
+}
+
+.poem_text {
+    margin-bottom: 30px;
+}
+
 
 #cover {
      max-height: 100%;

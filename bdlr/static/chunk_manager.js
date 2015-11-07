@@ -21,6 +21,11 @@ ChunkManager.prototype.page_to_chunk = function(cur_page)
     return -1;
 };
 
+ChunkManager.prototype.get_page_data = function(page){
+    var chunk = this.chunks[this.page_to_chunk(page)];
+    return chunk.pages[page - chunk.chunk_start];
+};
+
 
 ChunkManager.prototype.preload_what = function(cur_page)
 {

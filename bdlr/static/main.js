@@ -11,16 +11,22 @@ function ready(){
 		height: 800
 	}).bind("turning", next_page);
 
-    $('#book').css('cursor', 'pointer').click(function() {
-        //UNCOMMENT WHEN I WANT PAGE CLICK TO TURN. BUT ONLY GOES FORWARD!
-        //$("#book").turn("next");
-    });
+    //$('#book').css('cursor', 'pointer').click(function() {
+    //    //UNCOMMENT WHEN I WANT PAGE CLICK TO TURN. BUT ONLY GOES FORWARD!
+    //    //$("#book").turn("next");
+    //});
 
     map_chunk_to_book(first_chunk);
     if (anchored_page != 0)
     {
         scroll_to(anchored_page);
     }
+}
+
+function next_text()
+{
+    var poem_data = chunk_manager.get_page_data(current_page);
+    $('#poems-' + current_page + ' > .poem_text').html(poem_data["English"][0].text);
 }
 
 function scroll_to(page){
@@ -69,9 +75,8 @@ function map_chunk_to_book(data)
         $('#painting-' + iteration_page).html('<i class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></i>');
 
         var poems = $('#poems-' + iteration_page);
-        poems = poems.empty().append('<h1>' + actual_page["original"].name + '/' + actual_page["English"][0].name + '</h1>');
-        poems.append('<span class="poems" id="original"><pre>' + actual_page["original"].text + '</pre></span>');
-        poems.append('<span class="poem" id="current"><p>' + actual_page["English"][0].text + '</p></span>');
+        poems = poems.empty().append('<h1>' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
+        poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
 
         ++counter;
     }
