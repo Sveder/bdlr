@@ -8,7 +8,10 @@ $( document ).ready(function() {
 function ready(){
     $("#book").turn({
 		width: 1010,
-		height: 800
+		height: 800,
+
+        elevation: 50,
+		gradients: true
 	}).bind("turning", next_page);
 
     //$('#book').css('cursor', 'pointer').click(function() {
@@ -25,8 +28,13 @@ function ready(){
 
 function next_text()
 {
-    var poem_data = chunk_manager.get_page_data(current_page);
-    $('#poems-' + current_page + ' > .poem_text').html(poem_data["English"][0].text);
+    var poem_data = chunk_manager.get_next_text(current_page);
+    var ele = $('#poems-' + current_page + ' > .poem_text');
+
+    ele.hide('slide', {direction: 'left'}, 300).delay(50).queue(function(n) {
+        $(this).html(poem_data.text);
+        n();
+    }).show('slide', {direction: 'right'}, 300);
 }
 
 function scroll_to(page){
@@ -75,7 +83,7 @@ function map_chunk_to_book(data)
         $('#painting-' + iteration_page).html('<i class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></i>');
 
         var poems = $('#poems-' + iteration_page);
-        poems = poems.empty().append('<h1>' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
+        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
         poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
 
         ++counter;

@@ -1,6 +1,7 @@
 var ChunkManager = function(first_chunk, first_ordinal, total_chunk_count)
 {
     this.chunks = new Array(total_chunk_count);
+    this.cur_text_per_page = Array.apply(null, Array(page_count)).map(Number.prototype.valueOf, 0);
     this.chunks[first_ordinal] = first_chunk;
 };
 
@@ -21,9 +22,25 @@ ChunkManager.prototype.page_to_chunk = function(cur_page)
     return -1;
 };
 
+
 ChunkManager.prototype.get_page_data = function(page){
     var chunk = this.chunks[this.page_to_chunk(page)];
     return chunk.pages[page - chunk.chunk_start];
+};
+
+ChunkManager.prototype.get_next_text = function(page){
+    var page_data = this.get_page_data(page);
+    var len_of_texts = page_data.English.length;
+
+    this.cur_text_per_page[page] += 1;
+    this.cur_text_per_page[page] %= (1 + len_of_texts); // Take into account the french version
+
+    if (this.cur_text_per_page[page] == 0)
+    {
+        return page_data.original;
+    }
+
+    return page_data.English[this.cur_text_per_page[page] - 1];
 };
 
 

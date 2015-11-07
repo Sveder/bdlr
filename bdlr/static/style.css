@@ -1,9 +1,10 @@
-#preload {
-    display: none;
-}
-
 body {
-    background-color: yellow;
+    background-image: url("/static/img/wood_bg.jpg");
+    background-repeat: no-repeat;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+    overflow: hidden;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -11,6 +12,10 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+#preload {
+    display: none;
 }
 
 #book
@@ -31,7 +36,7 @@ body {
 }
 
 .poems {
-    background-color: lightblue;
+    background-color: #F9F9F9;
     overflow: auto;
 }
 
@@ -41,14 +46,13 @@ body {
     margin-left: auto;
     margin-right: auto;
 
-    white-space: pre;
+    white-space: pre-wrap;
     display: block;
 }
 
 .poem_text {
     margin-bottom: 30px;
 }
-
 
 #cover {
      max-height: 100%;
@@ -70,3 +74,11 @@ body {
     -ms-filter: "FlipH";
 }
 
+#book .shadow,
+#book.shadow{
+  -webkit-box-shadow: 0 4px 10px #666;
+  -moz-box-shadow: 0 4px 10px #666;
+  -ms-box-shadow: 0 4px 10px #666;
+  -o-box-shadow: 0 4px 10px #666;
+  box-shadow: 0 4px 10px #666;
+}

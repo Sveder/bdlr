@@ -12,10 +12,14 @@
 
             var anchored_page = {{ start_page }};
             var chunk_count = {{ chunk_count }};
+            var page_count = {{ page_count }};
+
         </script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-        <script src="{% static 'vendor/turn.js' %}" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+
+        <script src="{% static 'vendor/turn.min.js' %}" type="text/javascript"></script>
 
         <script src="{% static 'chunk_manager.js' %}" type="text/javascript"></script>
         <script src="{% static 'main.js' %}" type="text/javascript"></script>
@@ -30,9 +34,9 @@
 
         <div>
             <div id="book">
-                <div class="hard"> <img draggable="false" id="cover" src="static/img/original_cover.jpg"> </div>
+                <div class="hard cover"> <img draggable="false" id="cover" src="static/img/original_cover.jpg"> </div>
 
-                <div class="painting" id="painting-1">1</div>
+                <div class="painting hard" id="painting-1">1</div>
                 <div class="poems"    id="poems-1">1</div>
 
                 <div class="painting" id="painting-2">1</div>

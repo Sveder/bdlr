@@ -60,7 +60,9 @@ def index(request, page=0):
     d = {"first_chunk"  : generate_chunk_json(chunk),
          "first_ordinal": chunk,
          "start_page"   : page,
-         "chunk_count"  : len(CHUNK_PAGES),}
+         "chunk_count"  : len(CHUNK_PAGES),
+         "page_count"   : max(CHUNK_PAGES[-1])}
+
     return render_to_response("mvp_note.html", dictionary=d)
 
 
