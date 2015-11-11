@@ -80,7 +80,7 @@ function map_chunk_to_book(data)
         var iteration_page = data.chunk_start + counter;
         console.log("Adding actual page: " + iteration_page);
 
-        $('#painting-' + iteration_page).html('<i class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></i>');
+        $('#painting-' + iteration_page).html('<div class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></div>');
 
         var poems = $('#poems-' + iteration_page);
         poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');

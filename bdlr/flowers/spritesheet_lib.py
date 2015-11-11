@@ -21,6 +21,7 @@ CSS_SS_ITEM_TEMPLATE = """.sprite-%s {
     width: %spx;
     height: %spx;
     background-position: -%spx %spx;
+    float: right;
 }
 """
 
