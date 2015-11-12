@@ -12,6 +12,8 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    -webkit-transform:translate3d(0,0,0);
 }
 
 #preload {
@@ -80,4 +82,12 @@ body {
   -ms-box-shadow: 0 4px 10px #666;
   -o-box-shadow: 0 4px 10px #666;
   box-shadow: 0 4px 10px #666;
+}
+
+.page-number
+{
+    margin: 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }

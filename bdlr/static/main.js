@@ -85,6 +85,7 @@ function map_chunk_to_book(data)
         var poems = $('#poems-' + iteration_page);
         poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
         poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
+        poems.append('<span class="page-number">' + (iteration_page * 2 + 1) + '/203</span>');
 
         ++counter;
     }
