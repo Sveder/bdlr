@@ -10,7 +10,6 @@ function ready(){
 		width: 1010,
 		height: 800,
 
-        elevation: 50,
 		gradients: true
 	}).bind("turning", next_page);
 

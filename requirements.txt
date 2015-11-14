@@ -1,4 +1,5 @@
 django
+django-waffle
 django-extensions
 
 pillow
