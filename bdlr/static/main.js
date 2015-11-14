@@ -13,6 +13,15 @@ function ready(){
 		gradients: true
 	}).bind("turning", next_page);
 
+
+    Mousetrap.bind("left", function() {
+        $("#book").turn("previous");
+    }, "Previous page");
+
+    Mousetrap.bind("right", function() {
+        $("#book").turn("next");
+    }, "Next page");
+
     //$('#book').css('cursor', 'pointer').click(function() {
     //    //UNCOMMENT WHEN I WANT PAGE CLICK TO TURN. BUT ONLY GOES FORWARD!
     //    //$("#book").turn("next");
