@@ -54,28 +54,32 @@ def create_sprite_sheet(name_to_image_path_dict):
               for name, file_path in name_to_image_path_dict.items()}
     image_to_location = {}
 
+    name = "-".join(name_to_image_path_dict.keys())
+    output_file = os.path.join(settings.SPRITE_SHEET_DIR, "%s.%s" % (name, settings.SPRITE_SHEET_FILETYPE))
+    image_exists = os.path.isfile(output_file)
+
     master_height = max([i.size[1] for i in images.values()])  # Make it as high as the highest image
     master_width = sum([i.size[0] for i in images.values()])   # and as wide as all of them together
 
-    master = Image.new(
-        mode='RGBA',
-        size=(master_width, master_height),
-        color=(0, 0, 0, 0))  # fully transparent
+    if not image_exists:
+        master = Image.new(
+            mode='RGBA',
+            size=(master_width, master_height),
+            color=(0, 0, 0, 0))  # fully transparent
 
     cur_width = 0
     for count, name in enumerate(images.keys()):
         image = images[name]
-        master.paste(image, (cur_width, 0))
-        image_to_location[name] = (cur_width, 0, image.size[0], image.size[1])
+        if not image_exists:
+            master.paste(image, (cur_width, 0))
+            
         image_to_location[name] = (image.size[0], image.size[1], cur_width, 0)
-
         cur_width += image.size[0]
 
-    name = "-".join(name_to_image_path_dict.keys())
-    output_file = os.path.join(settings.SPRITE_SHEET_DIR, "%s.%s" % (name, settings.SPRITE_SHEET_FILETYPE))
-    if "gif" == settings.SPRITE_SHEET_FILETYPE:
-        master.save(output_file, transparency=0)
-    else:
-        master.save(output_file)
+    if not image_exists:
+        if "gif" == settings.SPRITE_SHEET_FILETYPE:
+            master.save(output_file, transparency=0)
+        else:
+            master.save(output_file)
 
     return output_file, image_to_location

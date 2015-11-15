@@ -4,3 +4,5 @@ django-extensions
 
 pillow
 appenlight-client
+
+mock
