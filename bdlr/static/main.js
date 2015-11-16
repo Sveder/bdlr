@@ -1,6 +1,11 @@
 var chunk_manager = new ChunkManager(first_chunk, first_ordinal, chunk_count);
 var current_page = 0; // 0 is closed...
 
+var peel_timeout = 3000; // 3 seconds
+var peel_count = 3; // How many times to peel in a row.
+var peel_page = current_page;
+var should_peel_more_than_once = false;
+
 $( document ).ready(function() {
     ready();
 });
@@ -27,11 +32,44 @@ function ready(){
     //    //$("#book").turn("next");
     //});
 
+    setInterval(to_peel_or_not_to_peel, peel_timeout);
+
     map_chunk_to_book(first_chunk);
     if (anchored_page != 0)
     {
         scroll_to(anchored_page);
     }
+}
+
+function peel() {
+    $("#book").turn("peel", "r");
+    $("#book").turn("peel", "br");
+}
+
+function unpeel() {
+    $("#book").turn("peel", false);
+}
+
+function to_peel_or_not_to_peel()
+{
+    if (current_page != peel_page)
+    {
+        return;
+    }
+
+    console.log("peelings?");
+
+    for (var i = 0; i < peel_count; ++i)
+    {
+        $("#book").delay(700 * i).queue(function(n) {
+            peel();
+            n()
+        }).delay(500).queue(function(n) {
+            unpeel();
+            n()
+        });
+    }
+    peel_count = 0;
 }
 
 function next_text()
@@ -47,12 +85,18 @@ function next_text()
 
 function scroll_to(page){
     $("#book").turn("page", page * 2);
+    peel_page = anchored_page;
 }
 
 
 function next_page(x, y, z) {
     current_page = Math.floor(y / 2);
     window.history.replaceState("", "", "/" + current_page);
+
+    if (should_peel_more_than_once) {
+        peel_count = 3;
+    }
+    peel_page = current_page;
 
     console.log("Current page: " + current_page);
 
