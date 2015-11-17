@@ -37,8 +37,8 @@ body {
 }
 
 .poems {
-    background-color: #F9F9F9;
     overflow: auto;
+    background: linear-gradient(to right, #aaaaaa 0%, #F9F9F9 5%, #F9F9F9 100%);
 }
 
 

@@ -11,8 +11,7 @@ body:after{
 }
 
 .sprite-sheet-%s {
-    background-image: url(/static/spritesheet/%s);
-    background-repeat: no-repeat;
+    background: linear-gradient(to left, rgba(170, 170, 170, 1) 0%%, rgba(0, 0, 0, 0) 5%%, rgba(0, 0, 0, 0) 100%%), url("/static/spritesheet/%s"), no-repeat;
     display: block;
 }
 """
