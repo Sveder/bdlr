@@ -27,10 +27,23 @@ function ready(){
         $("#book").turn("next");
     }, "Next page");
 
-    //$('#book').css('cursor', 'pointer').click(function() {
-    //    //UNCOMMENT WHEN I WANT PAGE CLICK TO TURN. BUT ONLY GOES FORWARD!
-    //    //$("#book").turn("next");
-    //});
+    $('#book').css('cursor', 'pointer')
+
+    $('.painting').mouseover(function() {
+        $("#book").turn("peel", 'bl');
+    });
+
+    $('.painting').mouseout(function() {
+        $("#book").turn("peel", false);
+    });
+
+    $('.poems').mouseover(function() {
+        $("#book").turn("peel", 'br');
+    });
+
+    $('.poems').mouseout(function() {
+        $("#book").turn("peel", false);
+    });
 
     setInterval(to_peel_or_not_to_peel, peel_timeout);
 
