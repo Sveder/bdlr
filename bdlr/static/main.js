@@ -6,6 +6,12 @@ var peel_count = 3; // How many times to peel in a row.
 var peel_page = current_page;
 var should_peel_more_than_once = false;
 
+function ga_event(category, _event, label, value){
+    label = typeof label !== 'undefined' ? label : undefined;
+    value = typeof value !== 'undefined' ? value : undefined;
+    ga('send', 'event', category, _event, label, value);
+}
+
 $( document ).ready(function() {
     ready();
 });
@@ -50,6 +56,7 @@ function ready(){
     map_chunk_to_book(first_chunk);
     if (anchored_page != 0)
     {
+        ga_event("Visit", "Anchor Load", undefined, anchored_page);
         scroll_to(anchored_page);
     }
 }
@@ -89,6 +96,7 @@ function next_text()
 {
     var poem_data = chunk_manager.get_next_text(current_page);
     var ele = $('#poems-' + current_page + ' > .poem_text');
+    ga_event("Poem", "Next Translation", poem_data.name, current_page);
 
     ele.hide('slide', {direction: 'left'}, 300).delay(50).queue(function(n) {
         $(this).html(poem_data.text);
@@ -105,6 +113,8 @@ function scroll_to(page){
 function next_page(x, y, z) {
     current_page = Math.floor(y / 2);
     window.history.replaceState("", "", "/" + current_page);
+
+    ga_event("Book", "Turned Page", undefined, current_page);
 
     if (should_peel_more_than_once) {
         peel_count = 3;
