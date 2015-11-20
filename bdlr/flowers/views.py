@@ -34,7 +34,8 @@ CHUNK_PAGES = [(1, 4),
                (89, 92),
                (93, 96),
                (97, 101),
-               (102, 102),]
+               (102, 105),
+               (106, 106)]
 
 
 def chunk_to_pages(chunk):
@@ -69,7 +70,7 @@ def index(request, page=0):
     return render_to_response("mvp_note.html", dictionary=d)
 
 
-@cache_page(settings.MAIN_CACHE_LENGTH)
+#@cache_page(settings.MAIN_CACHE_LENGTH)
 def generate_css(request, chunk_index):
     first_page, last_page = chunk_to_pages(int(chunk_index))
 
@@ -83,7 +84,7 @@ def generate_css(request, chunk_index):
     return HttpResponse(css, content_type="text/css")
 
 
-@cache_page(settings.MAIN_CACHE_LENGTH)
+#@cache_page(settings.MAIN_CACHE_LENGTH)
 def json_chunk(request, chunk_ordinal):
     chunk = generate_chunk_json(chunk_ordinal)
     return HttpResponse(chunk, content_type="application/json")
