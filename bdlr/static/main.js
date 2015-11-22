@@ -1,6 +1,7 @@
 var chunk_manager = new ChunkManager(first_chunk, first_ordinal, chunk_count);
 var current_page = 0; // 0 is closed...
 
+var peeling_switch = false; //Should peeling "tutorial" actually happen?
 var peel_timeout = 3000; // 3 seconds
 var peel_count = 3; // How many times to peel in a row.
 var peel_page = current_page;
@@ -20,6 +21,7 @@ function ready(){
     $("#book").turn({
 		width: 1010,
 		height: 800,
+        pages: page_count * 2 +2,
 
 		gradients: true
 	}).bind("turning", next_page);
@@ -33,7 +35,7 @@ function ready(){
         $("#book").turn("next");
     }, "Next page");
 
-    $('#book').css('cursor', 'pointer')
+    $('#book').css('cursor', 'pointer');
 
     $('.painting').mouseover(function() {
         $("#book").turn("peel", 'bl');
@@ -51,7 +53,10 @@ function ready(){
         $("#book").turn("peel", false);
     });
 
-    setInterval(to_peel_or_not_to_peel, peel_timeout);
+    if (peeling_switch == true){
+        log.console("Tutorial peeling is on!");
+        setInterval(to_peel_or_not_to_peel, peel_timeout);
+    }
 
     map_chunk_to_book(first_chunk);
     if (anchored_page != 0)
@@ -76,8 +81,6 @@ function to_peel_or_not_to_peel()
     {
         return;
     }
-
-    console.log("peelings?");
 
     for (var i = 0; i < peel_count; ++i)
     {
@@ -146,8 +149,7 @@ function load_chunk(chunk_ordinal)
         });
 }
 
-function map_chunk_to_book(data)
-{
+function map_chunk_to_book(data) {
     var counter = 0;
     for (var page in data["pages"])
     {
@@ -156,11 +158,18 @@ function map_chunk_to_book(data)
         console.log("Adding actual page: " + iteration_page);
 
         $('#painting-' + iteration_page).html('<div class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></div>');
+        $("#book").data().pageObjs[iteration_page * 2].html('<div class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></div>');
 
         var poems = $('#poems-' + iteration_page);
         poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
         poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
-        poems.append('<span class="page-number">' + (iteration_page * 2 + 1) + '/203</span>');
+        poems.append('<span class="page-number">' + (iteration_page * 2 + 1) + '/212</span>');
+
+        var poems = $("#book").data().pageObjs[iteration_page * 2 + 1];
+        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
+        poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
+        poems.append('<span class="page-number">' + (iteration_page * 2 + 1) + '/212</span>');
+
 
         ++counter;
     }

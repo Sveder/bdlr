@@ -6,7 +6,7 @@ var ChunkManager = function(first_chunk, first_ordinal, total_chunk_count)
 };
 
 
-ChunkManager.prototype.page_to_chunk = function(cur_page)
+ChunkManager.prototype._page_to_chunk_index = function(cur_page)
 {
     for (var i=0; i < this.chunks.length; ++i)
     {
@@ -22,9 +22,12 @@ ChunkManager.prototype.page_to_chunk = function(cur_page)
     return -1;
 };
 
+ChunkManager.prototype.get_page_chunk = function(page){
+    return this.chunks[this._page_to_chunk_index(page)];
+};
 
 ChunkManager.prototype.get_page_data = function(page){
-    var chunk = this.chunks[this.page_to_chunk(page)];
+    var chunk = this.chunks[this._page_to_chunk_index(page)];
     return chunk.pages[page - chunk.chunk_start];
 };
 
@@ -46,7 +49,7 @@ ChunkManager.prototype.get_next_text = function(page){
 
 ChunkManager.prototype.preload_what = function(cur_page)
 {
-    var current_chunk = this.page_to_chunk(cur_page);
+    var current_chunk = this._page_to_chunk_index(cur_page);
     if (current_chunk == -1)
     {
         return [];
