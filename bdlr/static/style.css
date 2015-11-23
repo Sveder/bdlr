@@ -30,6 +30,12 @@ body {
     overflow: hidden;
 }
 
+.grad {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to left, rgba(170, 170, 170, 1) 0%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 100%);
+}
+
 #next_text {
     display: inline;
     padding-left: 30px;

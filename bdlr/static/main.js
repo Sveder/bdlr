@@ -158,7 +158,7 @@ function map_chunk_to_book(data) {
         console.log("Adding actual page: " + iteration_page);
 
         $('#painting-' + iteration_page).html('<div class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></div>');
-        $("#book").data().pageObjs[iteration_page * 2].html('<div class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"></div>');
+        $("#book").data().pageObjs[iteration_page * 2].html('<div class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"><div class="grad"></div></div>');
 
         var poems = $('#poems-' + iteration_page);
         poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
