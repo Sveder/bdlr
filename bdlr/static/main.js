@@ -21,9 +21,7 @@ function ready(){
     $("#book").turn({
 		width: 1010,
 		height: 800,
-        pages: page_count * 2 +2,
-
-		gradients: true
+        pages: page_count * 2 + 2
 	}).bind("turning", next_page);
 
 
