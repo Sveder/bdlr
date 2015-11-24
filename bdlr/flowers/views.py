@@ -4,6 +4,7 @@ from django.conf import settings
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 
 import models
 import spritesheet_lib
@@ -87,6 +88,7 @@ def generate_css(request, chunk_index):
 
 
 #@cache_page(settings.MAIN_CACHE_LENGTH)
+@vary_on_headers('Accept-Encoding')
 def json_chunk(request, chunk_ordinal):
     chunk = generate_chunk_json(chunk_ordinal)
     return HttpResponse(chunk, content_type="application/json")
