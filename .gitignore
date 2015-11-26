@@ -53,3 +53,6 @@ docs/_build/
 # PyBuilder
 target/
 .idea
+/all_images
+/bdlr/assets/paintings/optimized
+/bdlr/static/spritesheet
