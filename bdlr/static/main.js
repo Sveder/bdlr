@@ -33,6 +33,10 @@ function ready(){
         $("#book").turn("next");
     }, "Next page");
 
+    Mousetrap.bind("shift+right", function() {
+        next_text();
+    }, "Next poem text");
+
     $('#book').css('cursor', 'pointer');
 
     $('.painting').mouseover(function() {
@@ -147,6 +151,7 @@ function load_chunk(chunk_ordinal)
         });
 }
 
+
 function map_chunk_to_book(data) {
     var counter = 0;
     for (var page in data["pages"])
@@ -173,10 +178,12 @@ function map_chunk_to_book(data) {
     }
 }
 
+
 function preload_css(css_path){
     console.log("Preloading next sheet: " + css_path);
     add_css(css_path);
 }
+
 
 //Add the css file given to the dom:
 function add_css(css_name){
