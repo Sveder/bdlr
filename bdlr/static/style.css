@@ -100,8 +100,10 @@ body {
 
 .page-number
 {
-    margin: 15px;
+    margin: 10px;
     position: absolute;
-    bottom: 0;
-    left: 0;
+    top: 0;
+    right: -305px;
+    font-size: smaller;
+    color: gray;
 }
