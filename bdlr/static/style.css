@@ -28,6 +28,9 @@ body {
 
 .painting {
     overflow: hidden;
+    background-image: url("/static/img/pages3.jpg");
+    -webkit-filter: grayscale(0.7);
+    filter: grayscale(0.7);
 }
 
 .grad {
