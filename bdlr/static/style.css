@@ -111,10 +111,10 @@ body {
 #pre-book{
     background-color: #FFFFA5;
     width: 450px;
-    height: 400px;
+    height: 380px;
 
 	position: absolute;
-	top: 50%;
+	top: 45%;
     left: 15%;
 	transform: translateY(-50%);
 
@@ -126,5 +126,5 @@ body {
 }
 
 #pre-book div {
-    margin-bottom: 20px;
+    margin: 20px;
 }
