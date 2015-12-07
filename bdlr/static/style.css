@@ -40,8 +40,12 @@ body {
 }
 
 #next_text {
-    display: inline;
+    margin-left: 130px;
+    margin-bottom: 10px;
     padding-left: 30px;
+    padding-right: 30px;
+
+    width: auto;
     cursor: pointer;
 }
 
@@ -111,11 +115,11 @@ body {
 #pre-book{
     background-color: #FFFFA5;
     width: 450px;
-    height: 380px;
+    height: 500px;
 
 	position: absolute;
-	top: 45%;
-    left: 15%;
+	top: 35%;
+    left: 10%;
 	transform: translateY(-50%);
 
     font-size: larger;
@@ -123,8 +127,13 @@ body {
     -ms-transform: rotate(-10deg); /* IE 9 */
     -webkit-transform: rotate(-10deg); /* Chrome, Safari, Opera */
     transform: rotate(-10deg);
+    z-index: 20;
 }
 
 #pre-book div {
     margin: 20px;
+}
+
+.open {
+    z-index: -1 !important;
 }

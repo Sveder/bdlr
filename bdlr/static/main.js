@@ -14,15 +14,29 @@ function ga_event(category, _event, label, value){
 }
 
 $( document ).ready(function() {
+    mobile_alert();
     ready();
 });
+
+function mobile_alert() {
+    mobiles = ["Smartphone", "Feature Phone", "Other Mobile"];
+    if (-1 != mobiles.indexOf(WURFL.form_factor))
+    {
+        console.log("Mobile!");
+        alert("This site has been optimized for desktop computers. You'd get a much better experience on a bigger " +
+            "form factor than a mobile phone, so we suggest you visit bdlr.sveder.com on a desktop computer.")
+    }
+}
 
 function ready(){
     $("#book").turn({
 		width: 1010,
 		height: 800,
         pages: page_count * 2 + 2
-	}).bind("turning", next_page);
+	}).
+    bind("turning", next_page).
+    bind("start", started_turning).
+    bind("end", ended_turning);
 
 
     Mousetrap.bind("left", function() {
@@ -100,11 +114,18 @@ function to_peel_or_not_to_peel()
 function next_text()
 {
     var poem_data = chunk_manager.get_next_text(current_page);
+
     var ele = $('#poems-' + current_page + ' > .poem_text');
     ga_event("Poem", "Next Translation", poem_data.name, current_page);
 
     ele.hide('slide', {direction: 'left'}, 300).delay(50).queue(function(n) {
         $(this).html(poem_data.text);
+        n();
+    }).show('slide', {direction: 'right'}, 300);
+
+    var header = $('#poems-' + current_page + ' > .poem_title');
+    header.hide('slide', {direction: 'left'}, 300).delay(50).queue(function(n) {
+        $(this).html(poem_data.name);
         n();
     }).show('slide', {direction: 'right'}, 300);
 }
@@ -135,8 +156,28 @@ function next_page(x, y, z) {
     {
         load_chunk(preloads[i]);
     }
+
+    if (current_page == 0)
+    {
+        $("#pre-book").removeClass("open")
+    }
+    else
+    {
+        $("#pre-book").addClass("open")
+    }
 }
 
+function started_turning()
+{
+    $("#pre-book").addClass("open");
+}
+
+function ended_turning()
+{
+    if (current_page == 0) {
+        $("#pre-book").removeClass("open");
+    }
+}
 
 function load_chunk(chunk_ordinal)
 {
@@ -164,15 +205,14 @@ function map_chunk_to_book(data) {
         $("#book").data().pageObjs[iteration_page * 2].html('<div class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"><div class="grad"></div></div>');
 
         var poems = $('#poems-' + iteration_page);
-        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
+        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + '</h1><button onclick="next_text();" id="next_text">></button>');
         poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
         poems.append('<span class="page-number">' + (iteration_page * 2 + 1) + '/212</span>');
 
         var poems = $("#book").data().pageObjs[iteration_page * 2 + 1];
-        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + ' <button onclick="next_text();" id="next_text">></button></h1>');
+        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + '</h1><button onclick="next_text();" id="next_text">Next Poem Version ></button>');
         poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
         poems.append('<span class="page-number">Page ' + (iteration_page * 2 + 1) + '/212</span>');
-
 
         ++counter;
     }
