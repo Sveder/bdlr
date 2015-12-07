@@ -3,6 +3,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
         <title>An illustrated journey through Baudelaire's Flowers of Evil. Illustrated by Ada Sverdlin </title>
 
         <link rel="shortcut icon" href="/static/favicon.png" />
@@ -21,6 +24,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js" type="text/javascript" defer></script>
+        <script type="text/javascript" src="https://wurfl.io/wurfl.js"></script>
 
         <script src="{% static 'vendor/mousetrap.help.js' %}" type="text/javascript" defer></script>
         <script src="{% static 'vendor/turn.min.js' %}" type="text/javascript" defer></script>
@@ -38,24 +42,7 @@
 
         <div>
             <div id="pre-book">
-                <div>
-                    Artist: Ada Sverdlin - <a href="http://the-owls1.livejournal.com/">Blog</a> (In russian)
-                </div>
-
-                <div>
-                    Front Cover: <a href="https://en.wikipedia.org/wiki/Les_Fleurs_du_mal#/media/File:Fleurs_du_mal.jpg">Wikipedia</a>
-                </div>
-
-                <div>
-                    Poems: <a href="http://fleursdumal.org/">Charles Baudelaire - Fleurs Du Mal and Translations.</a>
-                </div>
-
-                <div>
-                    Site: Michael Sverdlin
-                    (<a href="https://twitter.com/msveder">@msveder</a>)
-                    <br>
-                    <a href="http://sveder.com">sveder.com</a>
-                </div>
+                {% include "made_by.html" %}
             </div>
 
 
@@ -80,26 +67,7 @@
 
                 <div class="hard" id="back">
                     <div id="back-content">
-
-                        <div>
-                            Artist: Ada Sverdlin - <a href="http://the-owls1.livejournal.com/">Blog</a> (In russian)
-                        </div>
-
-                        <div>
-                            Front Cover: <a href="https://en.wikipedia.org/wiki/Les_Fleurs_du_mal#/media/File:Fleurs_du_mal.jpg">Wikipedia</a>
-                        </div>
-
-                        <div>
-                            Poems: <a href="http://fleursdumal.org/">Charles Baudelaire - Fleurs Du Mal and Translations.</a>
-                        </div>
-
-                        <div>
-                            Site: Michael Sverdlin
-                            (<a href="https://twitter.com/msveder">@msveder</a>)
-                            <a href="http://sveder.com">sveder.com</a>
-                        </div>
-                    </div>
-
+                        {% include "made_by.html" %}
                 </div>
             </div>
         </div>
