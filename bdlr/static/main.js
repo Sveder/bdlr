@@ -7,6 +7,8 @@ var peel_count = 3; // How many times to peel in a row.
 var peel_page = current_page;
 var should_peel_more_than_once = false;
 
+var should_peel_on_hover = false;
+
 function ga_event(category, _event, label, value){
     label = typeof label !== 'undefined' ? label : undefined;
     value = typeof value !== 'undefined' ? value : undefined;
@@ -30,7 +32,7 @@ function mobile_alert() {
 
 function ready(){
     $("#book").turn({
-		width: 1010,
+		width: 524*2,
 		height: 800,
         pages: page_count * 2 + 2
 	}).
@@ -53,21 +55,24 @@ function ready(){
 
     $('#book').css('cursor', 'pointer');
 
-    $('.painting').mouseover(function() {
-        $("#book").turn("peel", 'bl');
-    });
+    if (should_peel_on_hover)
+    {
+        $('.painting').mouseover(function() {
+            $("#book").turn("peel", 'bl');
+        });
 
-    $('.painting').mouseout(function() {
-        $("#book").turn("peel", false);
-    });
+        $('.painting').mouseout(function() {
+            $("#book").turn("peel", false);
+        });
 
-    $('.poems').mouseover(function() {
-        $("#book").turn("peel", 'br');
-    });
+        $('.poems').mouseover(function() {
+            $("#book").turn("peel", 'br');
+        });
 
-    $('.poems').mouseout(function() {
-        $("#book").turn("peel", false);
-    });
+        $('.poems').mouseout(function() {
+            $("#book").turn("peel", false);
+        });
+    }
 
     if (peeling_switch == true){
         log.console("Tutorial peeling is on!");
@@ -205,12 +210,12 @@ function map_chunk_to_book(data) {
         $("#book").data().pageObjs[iteration_page * 2].html('<div class="sprite-sheet-' + data.chunk_index + ' sprite-' + iteration_page + '"><div class="grad"></div></div>');
 
         var poems = $('#poems-' + iteration_page);
-        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + '</h1><button onclick="next_text();" id="next_text">></button>');
+        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + '</h1><button onclick="next_text();" id="next_text">In English ></button>');
         poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
         poems.append('<span class="page-number">' + (iteration_page * 2 + 1) + '/212</span>');
 
         var poems = $("#book").data().pageObjs[iteration_page * 2 + 1];
-        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + '</h1><button onclick="next_text();" id="next_text">Next Poem Version ></button>');
+        poems = poems.empty().append('<h1 class="poem_title">' + actual_page["original"].name + '</h1><button onclick="next_text();" id="next_text">In English ></button>');
         poems.append('<span class="poem_text" id="original">' + actual_page["original"].text + '</span>');
         poems.append('<span class="page-number">Page ' + (iteration_page * 2 + 1) + '/212</span>');
 

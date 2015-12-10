@@ -4,7 +4,7 @@ body {
 
     font-family: Georgia, 'Times New Roman', Times, serif;
 
-    overflow-x: hidden;
+    overflow: hidden;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -28,7 +28,7 @@ body {
 
 .painting {
     overflow: hidden;
-    background-image: url("/static/img/pages3.jpg");
+    background-image: url("/static/img/bw_pages.jpg");
     -webkit-filter: grayscale(0.7);
     filter: grayscale(0.7);
 }
