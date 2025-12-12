@@ -23,7 +23,7 @@ class Command(BaseCommand):
         print_urls = self.get_print_urls()
         restart = False
         for index, url in enumerate(print_urls):
-            print index, "/", len(print_urls)
+            print(index, "/", len(print_urls))
             if "140" in url:
                 restart = True
 
@@ -36,11 +36,11 @@ class Command(BaseCommand):
         return [POEM_PRINT_URL % poem_id for poem_id in poem_ids]
 
     def handle_url(self, url):
-        print url
+        print(url)
         res = requests.get(url, headers=HEADERS)
         try:
             original_poem_name, english_canonical_name = re.findall("<h3>(.*) \((.+)\).*</h3>", res.text)[0]
-        except:
+        except (IndexError, ValueError):
             english_canonical_name = original_poem_name = re.findall("<h3>(.*) .*</h3>", res.text)[0]
 
         #Scrapping code looks so bad:
@@ -61,9 +61,9 @@ class Command(BaseCommand):
 
             try:
                 year = re.findall("(\d{4})", poem_meta_line)[0]
-            except:
+            except (IndexError, ValueError):
                 year = None
-            print year, author
+            print(year, author)
 
             if index == 0:
                 language, is_original = "French", True

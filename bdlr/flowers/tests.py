@@ -1,9 +1,9 @@
 import os
+from unittest import mock
 
-import mock
 from django.test import TestCase
 
-import spritesheet_lib
+from flowers import spritesheet_lib
 
 
 IMAGE_DIR = os.path.join("assets", "paintings")
@@ -40,7 +40,6 @@ class SpriteSheetLibTest(TestCase):
     #         "4" : FOURTH_IMAGE,
     #     }
     #     css_txt = spritesheet_lib.create_sprite_css(name_to_image)
-    #     import pdb;pdb.set_trace()
 
     @mock.patch("PIL.Image.new")
     def test_cached_spritesheet(self, image_new_mock):
@@ -48,7 +47,6 @@ class SpriteSheetLibTest(TestCase):
         Test: Create sprite sheet whose image already exists on disk.
         Expected result: Sprite sheet wouldn't be recreated.
         """
-        import ipdb;ipdb.set_trace()
         spritesheet_lib.os.path.isfile = mock.MagicMock(return_value=True)
 
         name_to_image = {

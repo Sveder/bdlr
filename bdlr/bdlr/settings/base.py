@@ -2,19 +2,17 @@
 Django settings for bdlr project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
+https://docs.djangoproject.com/en/4.2/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
+https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from pathlib import Path
 
 from secret import *
-
-import appenlight_client.client as e_client
-APPENLIGHT = e_client.get_config({'appenlight.api_key': APPENLIGHT_PRIVATE_KEY})
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 ASSETS_DIR = os.path.join(BASE_DIR, "assets")
@@ -29,8 +27,6 @@ MAIN_CACHE_LENGTH = 60 * 60 * 24
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -50,9 +46,8 @@ INSTALLED_APPS = (
     'flowers',
 )
 
-MIDDLEWARE_CLASSES = (
-    'appenlight_client.django_middleware.AppenlightMiddleware',
-
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,13 +55,29 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'waffle.middleware.WaffleMiddleware',
-)
+]
 
 ROOT_URLCONF = 'bdlr.urls'
 
 WSGI_APPLICATION = 'bdlr.wsgi.application'
+
+# Templates configuration
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 
 # Database
@@ -100,4 +111,6 @@ STATICFILES_DIRS = (
     STATIC_DIR,
 )
 
-TEMPLATE_DIRS = (r"C:\work\bdlr\bdlr\bdlr\templates", )
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
