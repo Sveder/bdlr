@@ -20,10 +20,10 @@ class PoemTranslation(BaseModel):
     author = models.CharField(max_length=100, null=True)
     meta_line = models.TextField(null=True)
 
-    poem = models.ForeignKey("Poem", null=True)
+    poem = models.ForeignKey("Poem", null=True, on_delete=models.CASCADE)
     importance = models.IntegerField(default=100)
 
-    def __unicode__(self):
+    def __str__(self):
         return "PoemTranslation %s by %s for poem %s" % (self.pk, self.author, self.poem.pk)
 
 
@@ -31,19 +31,19 @@ class Painting(BaseModel):
     image = models.ImageField(null=True, upload_to=settings.PAINTINGS_DIR)
     path = models.CharField(max_length=200, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return "Painting %s at %s." % (self.pk, self.path)
 
 
 class Poem(BaseModel):
     name = models.CharField(max_length=200)
-    original = models.ForeignKey(PoemTranslation, related_name="+")
+    original = models.ForeignKey(PoemTranslation, related_name="+", on_delete=models.CASCADE)
     translations = models.ManyToManyField(PoemTranslation, related_name="+")
     ordinal = models.IntegerField(null=True)
     image = models.ManyToManyField(Painting)
     link = models.URLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return "Poem %s named %s at ordinal %s" % (self.pk, self.name, self.ordinal)
 
 

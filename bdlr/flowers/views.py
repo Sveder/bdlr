@@ -2,12 +2,12 @@ import json
 
 from django.conf import settings
 from django.http.response import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 
-import models
-import spritesheet_lib
+from flowers import models
+from flowers import spritesheet_lib
 
 
 CHUNK_PAGES = [(1, 4),
@@ -57,7 +57,7 @@ def index(request, page=0):
 
     try:
         page = int(page)
-    except:
+    except (ValueError, TypeError):
         page = 0
 
     chunk = chunk_from_page(page)
@@ -70,7 +70,7 @@ def index(request, page=0):
          "page_count"   : page_count,
          "page_range"   : range(1, page_count)}
 
-    return render_to_response("mvp_note.html", dictionary=d)
+    return render(request, "mvp_note.html", d)
 
 
 #@cache_page(settings.MAIN_CACHE_LENGTH)
@@ -78,7 +78,7 @@ def generate_css(request, chunk_index):
     first_page, last_page = chunk_to_pages(int(chunk_index))
 
     name_to_image_path = {}
-    for i in xrange(first_page, last_page + 1):
+    for i in range(first_page, last_page + 1):
         poem = models.Poem.objects.get(ordinal=i)
         painting = poem.image.last()
         name_to_image_path["%s" % i] = painting.path

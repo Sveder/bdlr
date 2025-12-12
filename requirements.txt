@@ -1,8 +1,9 @@
-django
-django-waffle
-django-extensions
+# Django and core dependencies
+Django>=4.2,<5.0
+django-waffle>=3.0.0
+django-extensions>=3.2.0
 
-pillow
-appenlight-client
+# Image processing
+Pillow>=10.0.0
 
-mock
+# Development/Testing (mock is now built into Python 3 as unittest.mock)
